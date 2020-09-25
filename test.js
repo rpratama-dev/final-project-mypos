@@ -1,6 +1,7 @@
-function generateRecomendedUang (uang) {
-  let pecahan = [5000, 10000, 20000, 50000, 100000];
-  
+function generateRecomendedUang (uang, kelipatan) {
+  let x = uang + kelipatan;
+  let y = Math.floor(x / kelipatan);
+  return y * kelipatan; 
 }
 
-console.log(generateRecomendedUang(125000));
+console.log(generateRecomendedUang(45000, 10000));

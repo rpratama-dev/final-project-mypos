@@ -276,10 +276,14 @@ function ubahTotal(id, action) {
 
 function loadPembayaran(cartBelanja = CARTBELANJA) {
   nextSlide('#slide-3');
+  let recomended1 = document.getElementById('btnUangRecomended1');
+  let recomended2 = document.getElementById('btnUangRecomended2');
   let totalTransaksi = document.getElementById('totalTransaksi');
   let price = cartBelanja.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
   totalTransaksi.innerText = `Rp${price}`;
-
+  recomended2.innerText = `Rp${formatTextPembayaran(getRecomendedPembayaran(cartBelanja.totalPrice, 10000))}`;
+  recomended1.innerText = `Rp${formatTextPembayaran(getRecomendedPembayaran(cartBelanja.totalPrice, 50000))}`;
 }
 
 function clearAllValue() { 
@@ -391,7 +395,7 @@ function prosesPembayaran(cartBelanja = CARTBELANJA) {
 
 function getFormatDateTime() {
   var today = new Date();
-  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var date = today.getDate() +'-'+ (today.getMonth()+1) +'-'+ today.getFullYear();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   return date+' '+time;
 }
@@ -459,9 +463,10 @@ textPembayaran.addEventListener("blur", function(event) {
   textPembayaran.value = 'Rp' + formatTextPembayaran(Number(value));
 });
 
-function generateRecomendedUang (uang) {
-  let pecahan = [5000, 10000, 20000, 50000, 100000];
-
+function getRecomendedPembayaran(uang, kelipatan) {
+  let x = uang + kelipatan;
+  let y = Math.floor(x / kelipatan);
+  return y * kelipatan; 
 }
 
 // Get the modal
