@@ -90,7 +90,8 @@
             <div class="input-icons"> 
               <a href="#slide-1"><i class="fas fa-arrow-left icon" style="float: left;"></i></a>
               <div class="title-slide">Daftar Pesanan</div>
-              <button class="btn-proses" onclick="loadPembayaran()"><b>Proses</b></button>
+              <button id="btn-proses" class="btn-proses" onclick="loadPembayaran()" style="display: none;"><b>Proses</b></button>
+              <button id="btn-cancel" class="btn-proses" onclick="cancelTransaksi()" style="display: none; margin-right: 20px; background-color: maroon;"><b>Cancel</b></button>
             </div>  
 
             <div class="card daftar-pesanan" id="listPesanan">
@@ -146,8 +147,8 @@
               <div class="btn-group btn-center">
                 <button class="btn-large" id="btnLainya" onclick="pilihUang('btnLainya')"><b>Lainnya</b></button>
                 <button class="btn-large" id="btnUangPas" onclick="pilihUang('btnUangPas')"><b>Uang Pas</b></button>
-                <button class="btn-large" id="btnUangRecomended1" onclick="pilihUang('btnUangRecomended1')"><b>Rp150,000</b></button>
-                <button class="btn-large" id="btnUangRecomended2" onclick="pilihUang('btnUangRecomended2')"><b>Rp130,000</b></button>
+                <button class="btn-large" id="btnUangRecomended1" onclick="pilihUang('btnUangRecomended1')"><b>Rp0</b></button>
+                <button class="btn-large" id="btnUangRecomended2" onclick="pilihUang('btnUangRecomended2')"><b>Rp0</b></button>
               </div>
               <div>
                 <input readonly class="input-large input-field" type="number" 

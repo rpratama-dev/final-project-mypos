@@ -178,9 +178,13 @@ function addChoice(id, action = '+') {
   let total = CARTBELANJA.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   document.getElementById('cart-belanja').innerText = `${CARTBELANJA.countItem} item | Rp${total}`;
   document.getElementById('divCart').style.display = 'block';
+  document.getElementById('btn-cancel').style.display = 'block';
+  document.getElementById('btn-proses').style.display = 'block';
 
   if (!CARTBELANJA.countItem) {
     document.getElementById('divCart').style.display = 'none';
+    document.getElementById('btn-cancel').style.display = 'none';
+    document.getElementById('btn-proses').style.display = 'none';
     window.location.href = "#slide-1";
   }
   // console.log(CARTBELANJA.id[id]);
@@ -249,15 +253,20 @@ function loadDetailPesanan (cartBelanja, menus) {
   }
 
   let divListPesanan = document.getElementById('listPesanan');
-  let totalItem = document.getElementById('totalItem');
-  let totalPrice = document.getElementById('totalPrice'); 
-  let price = cartBelanja.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
   divListPesanan.innerHTML = listPesanan;
-  totalItem.innerText = cartBelanja.countItem + ' item';
-  totalPrice.innerText = `Rp${price}`;
+  setDetailTransaksi();
+
   // console.log(listPesanan)
   return true;
+}
+
+function setDetailTransaksi(cartBelanja = CARTBELANJA) {
+  let totalItem = document.getElementById('totalItem');
+  let totalPrice = document.getElementById('totalPrice'); 
+  let price = formatTextPembayaran(cartBelanja.totalPrice);
+
+  totalItem.innerText = cartBelanja.countItem + ' item';
+  totalPrice.innerText = `Rp${price}`;
 }
 
 function ubahTotal(id, action) {
@@ -272,6 +281,7 @@ function ubahTotal(id, action) {
     document.getElementById("container-" + id).style.display = 'none';
   }
   addChoice(id, action);
+  setDetailTransaksi();
 }
 
 function loadPembayaran(cartBelanja = CARTBELANJA) {
@@ -296,6 +306,11 @@ function clearAllValue() {
   clearDetailTransaction();
 }
 
+function cancelTransaksi() {
+  clearAllValue();
+  window.location.href = "#slide-1";
+}
+
 function clearPembayaran() { 
   document.getElementById('uangPembayaran').value = 'Rp0';
   document.getElementById('totalTransaksi').innerText = 'Rp0';
@@ -307,13 +322,14 @@ function clearPembayaran() {
 function clearChoice() { 
   let divCard = document.getElementsByClassName('total');
   // console.log(divCard);
-  for (let i = 0; i < divCard.length; i++) { 
-    let oldValue = divCard[i].children[0].innerText;
+  for (let i = 0; i < divCard.length; i++) {  
     let divValue = divCard[i].children[0]; 
     divValue.innerText = '';
     divCard[i].style.display = "none";  
     document.getElementById('cart-belanja').innerText = `0 item | Rp0`;
     document.getElementById('divCart').style.display = 'none'; 
+    document.getElementById('btn-cancel').style.display = 'none';
+    document.getElementById('btn-proses').style.display = 'none';
   }
 }
 
