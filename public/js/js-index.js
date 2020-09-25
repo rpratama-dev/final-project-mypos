@@ -430,8 +430,12 @@ function pilihUang(buttonName, cartbelanja = CARTBELANJA) {
 function hitungSisa(pembayaran = 0, totalPrice = 0) {
   if (typeof pembayaran === 'number') { 
     let divKembalian = document.getElementById('kembalian');
-    let kembalian = pembayaran - totalPrice; ;
-    divKembalian.innerText = `Kembalian Rp${formatTextPembayaran(kembalian)}`; 
+    let kembalian = pembayaran - totalPrice; 
+    if (kembalian < 0) {
+      divKembalian.innerText = `Uang pembayaran tidak cukup!`; 
+    } else {
+      divKembalian.innerText = `Kembalian Rp${formatTextPembayaran(kembalian)}`; 
+    }
     return kembalian; 
   }
   return 0;
