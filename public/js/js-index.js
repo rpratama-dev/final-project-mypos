@@ -183,7 +183,7 @@ function addChoice(id, action = '+') {
     document.getElementById('divCart').style.display = 'none';
     window.location.href = "#slide-1";
   }
-  console.log(CARTBELANJA.id[id]);
+  // console.log(CARTBELANJA.id[id]);
 
   if (CARTBELANJA.id[id] === 0) {
     delete CARTBELANJA.id[id];
@@ -323,6 +323,51 @@ function formatTextPembayaran(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function tampilkanStruk(totalBayar, kembalian, cartBelanja = CARTBELANJA, menus = MENU) {
+  let divDateTime = document.getElementById('date-time');
+  let divUniqueID = document.getElementById('unique-id');
+  let divItemDetail = document.getElementById('itemDetail');
+  let divSubTotalItem = document.getElementById('sub-total-item');
+  let divCountItem = document.getElementById('count-item');
+  let divSubTotalAll = document.getElementById('sub-total-all');
+  let divTotalAll = document.getElementById('total-all');
+  let divTotalBayar = document.getElementById('total-bayar');
+  let divSisaKembalian = document.getElementById('sisa-kembalian');
+  let tempDetail = '';
+  let IDs = Object.keys(cartBelanja.id);
+  console.log(IDs)
+  for (let i = 0; i < IDs.length; i++) {
+    let id = IDs[i];
+    for (let j = 0; j < menus.length; j++) {
+      let objMenu = menus[j];
+      // console.log(id, objMenu.id)
+      if (Number(id) === objMenu.id) {
+        tempDetail += `
+        <div class="item-name">${objMenu.name}</div> 
+        <div class="item">
+          Rp${formatTextPembayaran(objMenu.price)}
+          <div style="float: right;">${cartBelanja.id[id]}x</div>
+        </div>`;
+        console.log(objMenu);
+        break;
+      }
+    }
+  }
+  // console.log(totalBayar, kembalian)
+  divDateTime.innerText = getFormatDateTime();
+  divItemDetail.innerHTML = tempDetail;
+  divUniqueID.innerText = 'Order ID : '+ Date.now();
+  divSubTotalItem.innerText = `Rp${formatTextPembayaran(cartBelanja.totalPrice)}`;
+  divCountItem.innerText = cartBelanja.countItem;
+  divSubTotalAll.innerText = `Rp${formatTextPembayaran(cartBelanja.totalPrice)}`;
+  divTotalAll.innerText = `Rp${formatTextPembayaran(cartBelanja.totalPrice)}`;
+  divTotalBayar.innerText = `Rp${formatTextPembayaran(totalBayar)}`;
+  divSisaKembalian.innerText = `Rp${formatTextPembayaran(kembalian)}`;;
+
+  var modal = document.getElementById("myModal");
+  modal.style.display = "block";
+}
+
 function prosesPembayaran(cartBelanja = CARTBELANJA) {
   let totalPrice = cartBelanja.totalPrice;
   let pembayaran = document.getElementById('uangPembayaran').value; 
@@ -339,8 +384,16 @@ function prosesPembayaran(cartBelanja = CARTBELANJA) {
     alert('Uang pembayaran masih kurang!');
   } else {
     alert('Pembayaran berhasil! Uang kembalian: ' + kembalian);
-    clearAllValue()
+    tampilkanStruk(pembayaran, kembalian);
+    clearAllValue();
   } 
+}
+
+function getFormatDateTime() {
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  return date+' '+time;
 }
 
 function pilihUang(buttonName, cartbelanja = CARTBELANJA) {
@@ -405,4 +458,32 @@ textPembayaran.addEventListener("blur", function(event) {
 function generateRecomendedUang (uang) {
   let pecahan = [5000, 10000, 20000, 50000, 100000];
 
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+// var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+// btn.onclick = function() {
+//   modal.style.display = "block";
+// }
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+  window.location.href = '#slide-1';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    window.location.href = '#slide-1';
+  }
 }
