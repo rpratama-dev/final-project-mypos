@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPOS</title>
+  <link rel="stylesheet" href="public/css/css-index.css" type="text/css">
+  <link href="public/font-awesome/css/all.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="public/css/slide.css" type="text/css">
+</head>
+<body>
+  <div class="container-small">
+    <header>
+      <img id="logo" class="logo" src="public/img/logo.png" width="200px" />
+      <nav>
+        <ul>
+          <a href="#"><li>Home</li></a>
+          <a href="#"><li>Add Menu</li></a>
+          <a href="#"><li>Setting</li></a>
+        </ul>
+      </nav>
+    </header>
+    <div> 
+      <div class="slider">
+  
+        <!-- <a href="#slide-1">1</a>
+        <a href="#slide-2">2</a>
+        <a href="#slide-3">3</a>
+        <a href="#slide-4">4</a>
+        <a href="#slide-5">5</a> -->
+      
+        <div class="slides">
+          <div id="slide-1">
+            <div class="input-icons"> 
+              <i class="fas fa-search icon"></i> 
+              <input id="searchItem" class="input-field" type="text" name="search" placeholder="Search..">   
+            </div> 
+  
+            <div id="divCart" class="cart" style="display: none;" onclick="detailCart()"> 
+              <div class="container">
+                <h4 style="margin-left: 10px;" id="cart-belanja"><b>11 Item | Rp12.000</b></h4>  
+              </div> 
+              <div class="arrow">
+                <span><i class="fas fa-arrow-right"></i></span>
+              </div> 
+            </div>
+
+            <div class="tab">
+              <button class="tablinks" onclick="openCity(event, 'tabSearch')" id="search" style="display: none;">Search Result</button>
+              <button class="tablinks" onclick="openCity(event, 'kategori-1')" id="defaultOpen">Recomended</button>
+              <button class="tablinks" onclick="openCity(event, 'kategori-2')">Foods</button>
+              <button class="tablinks" onclick="openCity(event, 'kategori-3')">Drinks</button>
+            </div>
+          
+            <!-- tab index -->
+            <div id="tabSearch" class="tabcontent"> 
+              <div id="tab-search" class="main content">
+                
+              </div> 
+            </div>
+        
+            <div id="kategori-1" class="tabcontent"> 
+              <div id="tab-recomended" class="main content">
+              
+              </div> 
+            </div>
+              
+            <div id="kategori-2" class="tabcontent">
+              <div id="tab-food" class="main content">
+        
+              </div>
+            </div>
+            
+            <div id="kategori-3" class="tabcontent">
+              <div id="tab-drink" class="main content">
+        
+              </div>
+            </div>  
+            <!-- <div id="divCart" class="cart" style="display: none;" onclick="detailCart()"> 
+              <div class="container">
+                <h4 style="margin-left: 10px;" id="cart-belanja"><b>11 Item | Rp12.000</b></h4>  
+              </div> 
+              <div class="arrow">
+                <span><i class="fas fa-arrow-right"></i></span>
+              </div> 
+            </div> -->
+          </div>
+
+          <div id="slide-2"> 
+            <div class="input-icons"> 
+              <a href="#slide-1"><i class="fas fa-arrow-left icon" style="float: left;"></i></a>
+              <div class="title-slide">Daftar Pesanan</div>
+              <button class="btn-proses" onclick="loadPembayaran()"><b>Proses</b></button>
+            </div>  
+
+            <div class="card daftar-pesanan" id="listPesanan">
+              <!-- <div class="container">
+                <div class="change-value" style="width: 200px; ">
+                  <div class="btn-group">
+                    <button><b>+</b></button>
+                    <button disabled>0</button>
+                    <button><b>-</b></button>
+                  </div>
+                </div> 
+                <h4 style="padding-left: 9px;"><b>Bebek Geprek</b></h4> 
+                <p style="padding: 0px; margin: 10px;">Rp23000</p> 
+              </div>  -->
+              <!-- <div class="container">
+                <div class="change-value" style="width: 200px; ">
+                  <div class="btn-group">
+                    <button id="btnKurangi"><b>+</b></button>
+                    <button disabled id="btnTotal">0</button>
+                    <button id="btnTambah"><b>-</b></button>
+                  </div> 
+                </div> 
+                <h4 style="padding-left: 9px;" id="itemName"><b>Bebek Geprek</b></h4> 
+                <p style="padding: 0px; margin: 10px;" id="itemPrice">Rp23000</p> 
+              </div>  -->
+            </div>
+            <div style="float: left;">
+              <div class="desc-transaksi">Jumlah item di pesan</div>
+              <div class="desc-transaksi">Pajak</div>
+              <div class="desc-transaksi">Sub total</div>
+            </div>
+            <div  style="float: right; text-align: right;">
+              <div id="totalItem" class="desc-transaksi">0 Item</div>
+              <div id="totalPajak" class="desc-transaksi">Rp0</div>
+              <div id="totalPrice" class="desc-transaksi">Rp0</div>
+            </div> 
+          </div>
+          <div id="slide-3"> 
+            <div class="input-icons"> 
+              <a href="#slide-2"><i class="fas fa-arrow-left icon" style="float: left;"></i></a>
+              <div class="title-slide">Pembayaran</div>
+              <button class="btn-proses" onclick="prosesPembayaran()"><b>Bayar</b></button>
+            </div>  
+            
+            <div class="card daftar-pesanan" id="listPesanan">
+              <div>
+                <h5>Nilai Transaksi</h5>
+                <div>
+                  <h2 id="totalTransaksi">Rp0</h2>
+                </div>
+              </div>
+              <hr>
+              <div class="btn-group btn-center">
+                <button class="btn-large" id="btnLainya" onclick="pilihUang('btnLainya')"><b>Lainnya</b></button>
+                <button class="btn-large" id="btnUangPas" onclick="pilihUang('btnUangPas')"><b>Uang Pas</b></button>
+                <button class="btn-large" id="btnUangRecomended1" onclick="pilihUang('btnUangRecomended1')"><b>Rp150,000</b></button>
+                <button class="btn-large" id="btnUangRecomended2" onclick="pilihUang('btnUangRecomended2')"><b>Rp130,000</b></button>
+              </div>
+              <div>
+                <input readonly class="input-large input-field" type="number" 
+                name="uangPembayaran" id="uangPembayaran" max="9999999999" onKeyUp="if(this.value>9999999999){this.value='9999999999';}"
+                style="outline: none; border: none">
+              </div>
+              <div id="kembalian">Kembalian Rp0 </div>
+            </div>
+          </div>
+          <div id="slide-4">
+            <div class="input-icons"> 
+              <a href="#slide-1"><i class="fas fa-arrow-left icon" style="float: left;"></i></a>
+              <div class="title-slide">Pembayaran</div>
+              <button class="btn-proses" onclick="nextSlide('#')"><b>Print</b></button>
+            </div> 
+            <div class="card daftar-pesanan" id="listPesanan">
+              
+            </div>
+          </div>
+          <div id="slide-5">
+            5
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- end tab index -->
+
+  <script src="public/js/js-index.js"></script>
+</body>
+</html>
