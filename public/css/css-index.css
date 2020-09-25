@@ -185,6 +185,9 @@ div.card img {
   padding: 2px 2px; 
   margin: 7px;
   border-radius: 10px; 
+  background-size:cover;
+  object-fit: cover;
+  overflow:hidden
 }
 
 .container {

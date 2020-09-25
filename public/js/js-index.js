@@ -52,19 +52,19 @@ document.getElementById("defaultOpen").click();
  }
 
 const MENU = [
-  { id: 1, image: 'public/img/pizza.jpg', name: 'Ayam Geprek', price: 15000, categories: 'foods', recomended: true},
-  { id: 2, image: 'public/img/pizza.jpg', name: 'Bebek Geprek', price: 23000, categories: 'foods', recomended: true },
-  { id: 3, image: 'public/img/pizza.jpg', name: 'Lele Geprek', price: 13000, categories: 'foods', recomended: false },
-  { id: 4, image: 'public/img/pizza.jpg', name: 'Nila Geprek', price: 18000, categories: 'foods', recomended: false },
-  { id: 5, image: 'public/img/pizza.jpg', name: 'Paket A', price: 20000, categories: 'foods', recomended: false },
-  { id: 6, image: 'public/img/pizza.jpg', name: 'Paket B', price: 15000, categories: 'foods', recomended: true },
-  { id: 7, image: 'public/img/pizza.jpg', name: 'Paket C', price: 25000, categories: 'foods', recomended: false },
-  { id: 8, image: 'public/img/pizza.jpg', name: 'Paket D', price: 28000, categories: 'foods', recomended: false },
-  { id: 9, image: 'public/img/pizza.jpg', name: 'Jus Nangka', price: 15000, categories: 'drinks', recomended: false },
-  { id: 10, image: 'public/img/pizza.jpg', name: 'Jus Naga', price: 10000, categories: 'drinks', recomended: false },
-  { id: 11, image: 'public/img/pizza.jpg', name: 'Jus Pisang', price: 12000, categories: 'drinks', recomended: false },
-  { id: 12, image: 'public/img/pizza.jpg', name: 'Jus Sirsak', price: 13000, categories: 'drinks', recomended: false },
-  { id: 13, image: 'public/img/pizza.jpg', name: 'Jus Vokad', price: 16000, categories: 'drinks', recomended: true },
+  { id: 1, image: 'public/img/ayam-geprek.jpg', name: 'Ayam Geprek', price: 15000, categories: 'foods', recomended: true},
+  { id: 2, image: 'public/img/bebek-geprek.jpg', name: 'Bebek Geprek', price: 23000, categories: 'foods', recomended: true },
+  { id: 3, image: 'public/img/lele-geprek.jpg', name: 'Lele Geprek', price: 13000, categories: 'foods', recomended: false },
+  { id: 4, image: 'public/img/nila-geprek.jpg', name: 'Nila Geprek', price: 18000, categories: 'foods', recomended: false },
+  { id: 5, image: 'public/img/ayam-geprek.jpg', name: 'Paket A', price: 20000, categories: 'foods', recomended: false },
+  { id: 6, image: 'public/img/bebek-geprek.jpg', name: 'Paket B', price: 15000, categories: 'foods', recomended: true },
+  { id: 7, image: 'public/img/lele-geprek.jpg', name: 'Paket C', price: 25000, categories: 'foods', recomended: false },
+  { id: 8, image: 'public/img/nila-geprek.jpg', name: 'Paket D', price: 28000, categories: 'foods', recomended: false },
+  { id: 9, image: 'public/img/jus-nangka.jpg', name: 'Jus Nangka', price: 15000, categories: 'drinks', recomended: false },
+  { id: 10, image: 'public/img/jus-naga.jpg', name: 'Jus Naga', price: 10000, categories: 'drinks', recomended: false },
+  { id: 11, image: 'public/img/jus-pisang.jpg', name: 'Jus Pisang', price: 12000, categories: 'drinks', recomended: false },
+  { id: 12, image: 'public/img/jus-sirsak.jpg', name: 'Jus Sirsak', price: 13000, categories: 'drinks', recomended: false },
+  { id: 13, image: 'public/img/jus-vokad.jpg', name: 'Jus Vokad', price: 16000, categories: 'drinks', recomended: true },
  ];
 
  (function() {
@@ -279,7 +279,7 @@ function loadPembayaran(cartBelanja = CARTBELANJA) {
   let recomended1 = document.getElementById('btnUangRecomended1');
   let recomended2 = document.getElementById('btnUangRecomended2');
   let totalTransaksi = document.getElementById('totalTransaksi');
-  let price = cartBelanja.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let price = formatTextPembayaran(cartBelanja.totalPrice);
   
   totalTransaksi.innerText = `Rp${price}`;
   recomended2.innerText = `Rp${formatTextPembayaran(getRecomendedPembayaran(cartBelanja.totalPrice, 10000))}`;
