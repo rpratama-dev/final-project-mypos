@@ -316,7 +316,7 @@ function clearPembayaran() {
   document.getElementById('totalTransaksi').innerText = 'Rp0';
   document.getElementById('btnUangRecomended1').innerText = 'Rp0';
   document.getElementById('btnUangRecomended2').innerText = 'Rp0';
-  document.getElementById('kembalian').innerText = 'Kembalian Rp0'; 
+  document.getElementById('kembalian').innerText = 'Tidak ada transaksi!'; 
 }
 
 function clearChoice() { 
@@ -355,7 +355,7 @@ function tampilkanStruk(totalBayar, kembalian, cartBelanja = CARTBELANJA, menus 
   let divSisaKembalian = document.getElementById('sisa-kembalian');
   let tempDetail = '';
   let IDs = Object.keys(cartBelanja.id);
-  console.log(IDs)
+  // console.log(IDs)
   for (let i = 0; i < IDs.length; i++) {
     let id = IDs[i];
     for (let j = 0; j < menus.length; j++) {
@@ -368,7 +368,7 @@ function tampilkanStruk(totalBayar, kembalian, cartBelanja = CARTBELANJA, menus 
           Rp${formatTextPembayaran(objMenu.price)}
           <div style="float: right;">${cartBelanja.id[id]}x</div>
         </div>`;
-        console.log(objMenu);
+        // console.log(objMenu);
         break;
       }
     }
@@ -441,15 +441,19 @@ function pilihUang(buttonName, cartbelanja = CARTBELANJA) {
  
   // console.log(uangPembayaran, cartbelanja.totalPrice)
   if (typeof uangPembayaran === 'number') { 
-    hitungSisa(uangPembayaran, cartbelanja.totalPrice)
+    hitungSisa(uangPembayaran, cartbelanja.totalPrice);
     textPembayaran.value = 'Rp' + formatTextPembayaran(uangPembayaran);
   } 
 
 } 
 
 function hitungSisa(pembayaran = 0, totalPrice = 0) {
-  if (typeof pembayaran === 'number') { 
     let divKembalian = document.getElementById('kembalian');
+  if (!pembayaran && !totalPrice) {
+    divKembalian.innerText = `Uang pembayaran tidak cukup!`; 
+    return 0;
+  }
+  if (typeof pembayaran === 'number') { 
     let kembalian = pembayaran - totalPrice; 
     if (kembalian < 0) {
       divKembalian.innerText = `Uang pembayaran tidak cukup!`; 
@@ -470,7 +474,10 @@ textPembayaran.addEventListener("keyup", function(event) {
 textPembayaran.addEventListener("blur", function(event) {
   event.preventDefault();   
   let value = textPembayaran.value; 
-  if (Number(value)) {
+  if (value.length < 1) {
+    value = 0;
+  }
+  if (Number(value) || value == 0) {
     textPembayaran.type = 'text';
     textPembayaran.readOnly = true;
     textPembayaran.value = 'Rp' + formatTextPembayaran(Number(value));
