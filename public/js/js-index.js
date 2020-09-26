@@ -470,13 +470,11 @@ textPembayaran.addEventListener("keyup", function(event) {
 textPembayaran.addEventListener("blur", function(event) {
   event.preventDefault();   
   let value = textPembayaran.value; 
-  if (Number(value) === NaN) {
-    value = 0;
-  }
-  // console.log(Number(value));
-  textPembayaran.type = 'text';
-  textPembayaran.readOnly = true;
-  textPembayaran.value = 'Rp' + formatTextPembayaran(Number(value));
+  if (Number(value)) {
+    textPembayaran.type = 'text';
+    textPembayaran.readOnly = true;
+    textPembayaran.value = 'Rp' + formatTextPembayaran(Number(value));
+  } 
 });
 
 function getRecomendedPembayaran(uang, kelipatan) {
